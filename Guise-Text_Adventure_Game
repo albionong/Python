@@ -1,0 +1,1974 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct 11 01:00:39 2018
+
+@author: Albion Ong
+
+WORKING DIRECTORY:
+C:\\Users\\Albion Ong\\Desktop\\PyCourse
+
+PURPOSE:
+    A python game made as a submission for the Data Science class.
+
+INTRODUCTION:
+    Guise is a choose your own adventure game designed to have the same feel 
+    as a Dungeons and Dragons playthrough. The player has 3 characters to 
+    choose from and the story is changed based on this and succeeding choices.
+    The goal is to survive the trials through by making the correct choices.
+    
+EXTRA:
+    Easter egg ending based on GMM's Nic Cage Flick or Deodorant Stick video.
+        - type "TAKE" on the following items: (Not "PASS")
+            1. Deodorant Stick
+            2. Bee Hive
+        - correctly answer questions:
+            1. Flick
+            2. Deo Stick
+            3. Flick
+
+BUGS:
+    Format of text changes based on console used.
+        - works best if played using Spyder's native console
+        - issues with using standalone python and other consoles
+        
+POINTS OF IMPROVEMENT:
+    Loops can be more elegant.
+    IF statements can be simplified to avoid deep nesting.
+"""
+
+import time
+import sys
+
+def type(text, delay): #From an entry in Form Stack
+    """ Makes TEXT come out by character based on a DELAY in seconds.  """
+    for beep in text:
+        print(beep, end = "")
+        sys.stdout.flush()
+        time.sleep(delay)
+
+def game_restart_1(play_restart):
+    """ This is the restart function for the whole game. """
+    
+    t = 0.015
+    
+    if play_restart == "y":
+        
+        print("\f")
+        
+    else:
+        
+        print("\f")
+        
+        type("\n\n Thank you for playing!", t)
+        
+        input("\n<Press ENTER to close>")
+        
+        print("\f")
+
+def game_restart_2():
+    """ This is the restart query function for the whole game. """
+    
+    
+    t = 0.015
+    
+    play_restart = 0
+        
+    while play_restart == 0:
+    
+        type(" Do you want to start over? [Y/N]", t)
+        
+        play_restart = str.lower(input("> "))
+        
+        if play_restart == "y" or play_restart == "yes":
+            
+            play_restart = "y"
+            
+            return play_restart
+            
+            break
+            
+        elif play_restart == "n" or play_restart == "no":
+            
+            play_restart = "n"
+            
+            return play_restart
+            
+            break
+            
+        else:
+            
+            print("\f")
+            
+            play_restart = 0
+
+def CREDITS1():
+    """ Intro credits of the game"""
+    
+    t = 0.015
+    
+    print("\f")
+    
+    type("     ", t)
+    
+    print("""
+ Welcome to Guise! 
+ 
+ This is Dungeons and Dragons style text adventure game. I, Albion, the
+ creator of game will also act as your game master through the narration made
+ in this game.
+ 
+ *** Inspiration for this game came from the characters popularized by the
+ youtube channels: Smosh Games and Good Mythical Morning, and one of my 
+ favorite movie characters: Ben Gates, played by Nic Cage in the National
+ Treasure franchise. ***
+""")
+
+    input("\n\n<Press ENTER to start the game>")
+
+def INTRO_SCREEN():
+    """ Welcome screen for the game. """
+	
+    t = 0.015
+    
+    print("\f")
+
+    type("""
+
+          
+               ▄██████▄  ███    █▄   ▄█     ▄████████    ▄████████ 
+              ███    ███ ███    ███ ███    ███    ███   ███    ███ 
+              ███    █▀  ███    ███ ███▌   ███    █▀    ███    █▀  
+             ▄███        ███    ███ ███▌   ███         ▄███▄▄▄     
+             ▀███ ████▄  ███    ███ ███▌ ▀███████████ ▀▀███▀▀▀     
+              ███    ███ ███    ███ ███           ███   ███    █▄  
+              ███    ███ ███    ███ ███     ▄█    ███   ███    ███ 
+              ████████▀  ████████▀  █▀    ▄████████▀    ██████████ 
+
+""", t / 5) #ASCII FONT DELTA CORPS PRIEST 1
+
+    time.sleep(0.5)
+
+    print("""
+                       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+                            Secrets of a Lost Society
+                       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+      
+""")
+                       
+    time.sleep(1)
+
+    input("""
+                      <Press ENTER to start your adventure>
+""")
+
+def CHAR_SEL():
+    """ Character selection function for game. """
+	
+    t = 0.015
+	
+    play_input = 0
+    play_char = 0
+    play_lock = 0 
+    
+    strength = 0
+    sanity = 0
+    speed = 0
+    
+    peter_1 = 0
+    peter_2 = 0
+    peter_3 = 0
+    pierre_1 = 0
+    pierre_2 = 0
+    pierre_3 = 0
+    danny_1 = 0
+    danny_2 = 0
+    danny_3 = 0
+
+    name_check = [peter_1, peter_2, pierre_1, pierre_2, danny_1, danny_2]
+    name_check2 = [peter_3, pierre_3, danny_3]
+	
+    print("\f")
+
+# This is where we put the general introduction to the story
+    type("""
+ Long ago, a cult, known to control the world from the shadows, has built a 
+ hidden temple. This ancient society has always been shrouded in mystery. 
+ They have shaped the world in the image they deemed right. Empires rose and 
+ fell as they pleased. Lies, deceit and treachery were the currencies they 
+ dealt in.
+ 
+ Millenia have passed and the cult has long been forgotten, but the world has
+ already been changed.
+ 
+ No one outside of this secret society has ever set foot in the hidden temple. 
+""", t)
+
+    time.sleep(0.5)
+    
+    type("\n\n Until now.", t)
+    
+    time.sleep(0.5)
+
+    input("\n\n<Press ENTER to continue>")
+
+# Introduce the three characters (Name selection starts here)
+    while play_char == 0 and play_lock == 0:
+    
+        print("\f")
+
+        type(" CHARACTER SELECTION", t)
+
+        print("""
+
+ Name:      PETER AKIMOTO     PIERRE LA PIERRE      DANNY TREJO
+ Strength:        1                  2                   3
+ Sanity:          2                  3                   1
+ Speed:           3                  1                   2
+""", )
+
+# Character selection
+        type("\n Who are you?", t)
+        play_input = str.lower(input("> "))
+    
+        peter_1 = ('peter' in play_input)
+        peter_2 = ('akimoto' in play_input)
+        peter_3 = ('peter akimoto' in play_input)
+        pierre_1 = ('pierre' in play_input)
+        pierre_2 = ('la' in play_input)
+        pierre_3 = ('pierre la pierre' in play_input or 'pierre la' in play_input
+                or 'la pierre' in play_input)
+        danny_1 = ('danny' in play_input)
+        danny_2 = ('trejo' in play_input)
+        danny_3 = ('danny trejo' in play_input)
+
+# Character name check
+        name_check = [peter_1, peter_2, pierre_1, pierre_2, danny_1, danny_2]
+        name_check2 = [peter_3, pierre_3, danny_3]
+
+        if name_check.count(True) == 1:
+    
+            if peter_1 == True or peter_2 == True:
+                play_char = "Peter Akimoto"
+                print("""
+ An adventurous child who always seems to find himself in interesting 
+ situations. The quickest and most nimble of the bunch, he runs circles
+ around everyone.                      
+""")
+                type(f" \n Are you sure you are {play_char}? [Y/N]", t)
+    
+            elif pierre_1 == True or pierre_2 == True:
+                play_char = "Pierre la Pierre"
+                print("""
+ A scholar from France, he's read about everything in this world and out of 
+ it. His knowledge has no bounds, it even includes chants that can protect 
+ him from other-worldly charms.                    
+""")
+                type(f" \n Are you sure you are {play_char}? [Y/N]", t)
+    
+            else:
+                play_char = "Danny Trejo"
+                print("""
+ An ex-convict that has been through the toughest scenarios. He can punch 
+ his way through any problem or cut them down with his machete. You
+ don't want to ever be in his way.                   
+""")
+                type(f" \n Are you sure you are {play_char}? [Y/N]", t)
+    
+        elif name_check.count(True) == 0:
+            type("\n That's not right. . .", t)
+            input("\n\n<Press ENTER to try again>") #insert loop to enter name again
+            play_char = 0
+            play_input = 0
+    
+        elif name_check.count(True) >= 2 and name_check2.count(True) !=1 :
+            type("\n You can't try choosing more than one character!", t)
+            input("\n\n<Press ENTER to choose again>")#insert loop to enter name again
+            play_char = 0
+            play_input = 0
+        
+        else:
+            if peter_3 == True and peter_1 == True and peter_2 == True:
+                play_char = "Peter Akimoto"
+                print("""
+ An adventurous child who always seems to find himself in interesting 
+ situations. The quickest and most nimble of the bunch, he runs circles
+ around everyone.                      
+""")
+                type(f" \n Are you sure you are {play_char}? [Y/N]", t)
+    
+            elif pierre_3 == True and pierre_1 == True and pierre_2 == True:
+                play_char = "Pierre la Pierre"
+                print("""
+ A scholar from France, he's read about everything in this world and out of 
+ it. His knowledge has no bounds, it even includes chants that can protect 
+ him from other-worldly charms.                    
+""")
+                type(f" \n Are you sure you are {play_char}? [Y/N]", t)
+    
+            elif danny_3 == True and danny_1 == True and danny_2 == True:
+                play_char = "Danny Trejo"
+                print("""
+ An ex-convict that has been through the toughest scenarios. He can punch 
+ his way through any problem or cut them down with his machete. You
+ don't want to ever be in his way.                   
+""")
+                type(f" \n Are you sure you are {play_char}? [Y/N]", t)
+    
+            else:
+                type("\n That's not right. . .", t)
+                input("\n\n<Press ENTER to try again>")
+                play_char = 0
+                play_input = 0 #insert loop to enter name again
+
+# Character lock-in
+        while play_char != 0 and play_lock == 0:
+            
+            play_lock = str.lower(input("> "))
+            
+            if play_lock == "n":
+                type(" \n Choose again.", t)
+                play_char = 0
+                play_lock = 0 #insert loop to enter name again
+                input("\n<Press ENTER to choose again>")
+                
+            elif play_lock == "no" or play_lock == "yes":
+                type(" \n I said to put in only 'Y' or 'N', but whatever. . .", t)
+                    
+                if play_lock == "no":
+                    type(" \n Choose again.", t) #insert loop to enter name again
+                    play_char = 0
+                    play_lock = 0
+                    input("\n<Press ENTER to choose again>")                
+                        
+                else:
+                    play_lock = "yes"
+                    input("\n<Press ENTER to continue>")
+                    print("\f")
+                    type(f"\n Welcome {play_char}! \n\n May luck be on your side.", t)
+                    input("\n\n<Press ENTER to start your adventure>")
+                    print("\f")
+    
+            elif play_lock == "y":
+                input("\n<Press ENTER to continue>")
+                print("\f")
+                type(f"\n Welcome {play_char}! \n\n May luck be on your side.", t)
+                input("\n\n<Press ENTER to start your adventure>")
+                print("\f")
+                
+            else:
+                type(f" \n Just a simple 'Y' or 'N' question. Try again!", t)
+                play_lock = 0 #loop to start of character lock-in
+
+# Lock in the starting stats
+    if play_char == "Peter Akimoto":
+        strength = 1
+        sanity = 2
+        speed = 3
+    
+    elif play_char == "Pierre la Pierre":
+        strength = 2
+        sanity = 3
+        speed = 1
+    
+    else:
+        strength = 3
+        sanity = 1
+        speed = 2
+
+    char_list = [play_char, strength, sanity, speed]
+
+    return char_list
+	
+def STORY_START(play_char):
+    """ Story start based on character chosen """
+    
+    t = 0.015
+    
+    if play_char == "Peter Akimoto":
+        type("""
+ You are running from some kids that you tricked into giving you their
+ candy. To escape, you decided to go through the forest to get to the
+ other side of town. As you run through the woods, you fall through a
+ hole. You pass out from the fall. When you wake up, you find yourself in
+ a hall lined with statues of what seems to be mythical creatures.
+""", t)
+    
+    elif play_char == "Pierre la Pierre":
+        type("""
+ You've read about a temple built a cult even before the the first millennium. 
+ It happens to be within the small town you're visiting for a forum. You enter 
+ the forest to find this temple of legend. After days of searching, you find 
+ the entrance. It's a dark tunnel leading down to something deeper. You follow 
+ it until you see a hall with great statues of mythical creatures from the 
+ text you've read.
+""", t)
+        
+    else:
+        type("""
+ You've gotten word of lost treasure in your city. You track down people who 
+ have information and made them give it to you. It has led you deep into the 
+ forest. In front of you stands a small entrance to a cave. You enter the 
+ cave, but the path is blocked but a make-shift wooden wall. Nothing can stop 
+ you! So you break it down and walk through. Now, you are in a large hall 
+ surrounded by statues of creatures that you've never seen before.
+""", t)
+    
+    input("\n<Press ENTER to continue>")
+    
+    print("\f")
+
+def MAIN_HALL(play_char):
+    """ Main hall room module """
+    
+    t = 0.015
+    
+    play_room = 0
+    
+    def main_text_slow():    
+        """ This is the text for the Main Hall. Shown by character."""
+    
+        print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+-  MAIN HALL  -+-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ """)
+    
+        type("""
+ You look around and see 3 giant humanoid statues, each with a door between 
+ their feet.
+     
+     On your left stands a LEOPARD holding an axe in each hand.
+         
+     To the right, a RAM blowing into a horn.
+         
+     In front of you, an EAGLE raising up a chalice.
+""", t)
+        
+        if play_char == "Peter Akimoto":
+        
+            type("""
+ The LEOPARD seems to be calling out to you.
+""", t)
+            
+        elif play_char == "Pierre la Pierre":
+    
+            type("""
+ The EAGLE seems to be calling out to you.
+""", t)
+            
+        else:
+        
+                type("""
+ The RAM seems to be calling out to you.
+""", t)
+
+    def main_text_fast():    
+        """ This is the text for the Main Hall. Instantly shown. """
+    
+        print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+-  MAIN HALL  -+-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ """)
+    
+        print("""
+ You look around and see 3 giant humanoid statues, each with a door between 
+ their feet.
+     
+     On your left stands a LEOPARD holding an axe in each hand.
+         
+     To the right, a RAM blowing into a horn.
+         
+     In front of you, an EAGLE raising up a chalice.
+""")
+        
+        if play_char == "Peter Akimoto":
+        
+            print("""
+ The LEOPARD seems to be calling out to you.
+""")
+            
+        elif play_char == "Pierre la Pierre":
+    
+            print("""
+ The EAGLE seems to be calling out to you.
+""")
+            
+        else:
+        
+            print("""
+ The RAM seems to be calling out to you.
+""")
+
+    def main_choice(choice):  
+        """ This is the text for the choice made in the Main Hall. """
+    
+        if choice == "leopard" or choice == "ram" or choice == "eagle":
+            
+            type(f"\n You enter the door between the {choice}'s feet.", t)
+            
+            input("\n<Press ENTER to continue>")  
+            
+            play_room = choice
+                
+            return play_room
+            
+            print("\f")
+    
+        else:
+        
+            type("\n That is not one of the statues.", t)
+            
+            input("\n<Press ENTER to try again>")
+            
+            print("\f")
+        
+            main_text_fast()
+
+    def room_main():
+        """ This is the Main Hall function """
+        
+        play_room = 0
+        
+        main_text_slow() 
+        
+        while play_room == 0:
+            
+            type("\n\n Where will you go? [Leopard / Ram / Eagle]", t)
+            
+            play_room = str.lower(input("> "))
+            
+            if play_room == "leopard" or play_room == "ram" or play_room == "eagle":
+                
+                main_choice(play_room)
+                
+                return play_room
+                
+                break
+                
+            else:
+                
+                play_room = 0
+                
+                main_choice(play_room)
+                
+                print("\f")
+                main_text_fast()
+                  
+    play_room = room_main()
+    
+    return play_room
+
+def LEOPARD_ROOM(play_char):
+    """ Leopard room module """
+    
+    t = 0.015
+    
+    def leopard_text_slow():    
+        """ This is the text for the Leopard Room. Shown by character."""
+    
+        print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+- LEOPARD ROOM +-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ """)
+    
+        type("""
+ As you stand by the room's threshold, an arrow flies just inches from your
+ face. Then you notice skeletons with spears through what used to be soft
+ tissue and muscle.
+""", t)
+        
+        if play_char == "Peter Akimoto":
+        
+            type("""
+ You say to yourself, "I would've rather been beat up by those kids than have
+ an arrow through my skull."
+""", t)
+            
+        elif play_char == "Pierre la Pierre":
+    
+            type("""
+ You say to yourself, "I've read about these dangers. I might not be able to
+ dodge all of them."
+""", t)
+            
+        else:
+        
+                type("""
+ You say to yourself, "Nothing can stop me. Even if it were a million arrows
+ and spears. I've seen more dangerous things in my life."
+""", t)
+
+    def leopard_text_fast():    
+        """ This is the text for the Leopard Room. Instantly shown. """
+    
+        print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+- LEOPARD ROOM +-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ """)
+    
+        print("""
+ As you stand by the room's threshold, an arrow flies just inches from your
+ face. Then you notice skeletons with spears through what used to be soft
+ tissue and muscle.
+""")
+        
+        if play_char == "Peter Akimoto":
+        
+            print("""
+ You say to yourself, "I would've rather been beat up by those kids than have
+ an arrow through my skull."
+""")
+            
+        elif play_char == "Pierre la Pierre":
+    
+            print("""
+ You say to yourself, "I've read about these dangers. I might not be able to
+ dodge all of them."
+""")
+            
+        else:
+        
+            print("""
+ You say to yourself, "Nothing can stop me. Even if it were a million arrows
+ and spears. I've seen more dangerous things in my life."
+""")
+
+    def leopard_return():
+        """ This is the return function to the Main Hall """
+        
+        type("\n\n You decide it is unsafe and head back to the Main Hall", t)
+        
+        input("\n<Press ENTER to continue>")
+        
+        print("\f")
+        
+        play_room = "main"
+        
+        return play_room
+        
+    def room_leopard():
+        """ Leopard room function """
+        
+        leopard_text_slow()
+        
+        play_input = 0
+        
+        type("\n\n Do you want to try your luck? [Y/N]", t)
+        
+        while play_input == 0:
+            play_input = str.lower(input("> "))
+        
+        
+            if play_input == "no" or play_input == "n":
+            
+                type("\n\n You decide it is unsafe and head back to the Main Hall", t)
+        
+                input("\n<Press ENTER to continue>")
+        
+                print("\f")
+                
+                play_room = "main"
+                
+                return play_room
+        
+            elif play_input == "yes" or play_input == "y":
+                type("\n\n You try to make your way through the room.\n", t)
+        
+                if play_char == "Peter Akimoto":
+        
+                    type(""" 
+ You run through the room. 
+ 
+ Arrows and spears are coming from all directions.
+ 
+ You keep running and jump through the exit.
+ 
+ You check yourself for any wounds, but did not see anything.
+""", t)
+
+                    input("\n<Press ENTER to continue>")
+                    
+                    play_room = "morphing"
+                    
+                    return play_room
+           
+                elif play_char == "Danny Trejo":
+
+                    type(""" 
+ You charge your way onwards. 
+ 
+ Halfway through the large room, you start to feel winded.
+ 
+ 5 meters aways from the exit, you feel a sharp pain on your right leg.
+ 
+ You don't mind the pain and keep on going, until you reach the other side.
+""", t)
+
+                    time.sleep(0.5)
+            
+                    type("""
+ You took an arrow to the knee.
+ 
+ Strength has decreased greatly.
+ """, t)
+            
+                    input("\n<Press ENTER to continue>") 
+                    
+                    play_room = "morphing"
+                    
+                    return play_room
+					
+                else:
+        
+                    type(""" 
+ You carefully chose your next steps as you try to avoid triggering the traps. 
+ 
+ 10 steps in and you trip on debris. You stumble but regain your balance.
+ 
+ However, you've already stepped on a pressure plate.
+ 
+ Spears come from the walls, you evade the first couple but you get hit by
+ one. And another. And Another.
+""", t)
+
+                    time.sleep(0.5)
+            
+                    type("""
+ You're bloody body lies there. Lifeless.
+""", t)
+                    
+                    time.sleep(0.5)
+                    
+                    print("\n\n\n YOU ARE DEAD!\n\n")
+                    
+                    play_room = "dead"
+                    
+                    return play_room
+                    				
+            else:
+                type(f" \n Just a simple 'Y' or 'N' question. Try again!", t)
+                    
+                play_input = 0
+                    
+    play_room = room_leopard()
+    
+    return play_room
+
+def RAM_ROOM(play_char):
+    """ Ram room module """
+    
+    t = 0.015
+	
+    print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+-+- RAM ROOM +-+-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ """)	
+	
+    type("""
+ As make your way through the hallway, you are stopped by a wooden door. You 
+ try push against it, but it does not budge. It is locked. You look around but
+ nothing can help you open it.
+""", t)
+
+    if play_char == "Peter Akimoto" or play_char == "Pierre la Pierre":
+        
+        type("""
+ You stand there, thinking what else you can do. After a while, you give up and
+ decide to head back to the main hall.
+""", t)
+    
+        input("\n<Press ENTER to continue>")
+    
+        print("\f")
+        
+        play_room = "main"
+    
+        return play_room
+
+    else:
+        
+        type("""
+ You are Danny Trejo! A wall can't stop you. You take a couple of steps away
+ from the door.
+ 
+ 
+ Do you want to try to break down the door? [Y/N]""", t)
+
+        play_input = 0
+
+        while play_input == 0:
+
+            play_input = str.lower(input("> "))
+
+            if play_input == "no" or play_input == "n":
+                
+                type("\n\n You decide to head back to the Main Hall", t)
+            
+                input("\n<Press ENTER to continue>")
+            
+                print("\f")
+            
+                play_room = "main"
+            
+                return play_room
+        
+            elif play_input == "yes" or play_input == "y":
+                
+                type("""
+ You charge towards the door. 
+ 
+ It did not stand a chance.
+""", t)
+ 
+                time.sleep(0.5)
+    			
+                type("\n Unbeknownst to you, right behind the door is a dark abyss.",
+                     t )
+                
+                time.sleep(0.5)
+                
+                type("\n\n You fall to your death.", t)
+                
+                time.sleep(0.5)
+                
+                print("\n\n\n YOU ARE DEAD!\n\n")
+                
+                play_room = "dead"
+                
+                return play_room
+            
+            else:
+                type(f" \n Just a simple 'Y' or 'N' question. Try again!", t)
+                    
+                play_input = 0
+
+def EAGLE_ROOM():
+    """ Eagle room module """
+    
+    t = 0.015
+    
+    print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+- EAGLE ROOM +-+-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ """)	
+	
+    type("""
+ Upon entering the room, you notice it's empty, except for a skeleton on one 
+ side of the room. There isn't another door apart from the one you just used 
+ to come in. 
+ 
+ There's an eeriness to the room, that it sends chills down your spine.
+""", t)
+	
+    type("\n\n Do you want to inspect the skeleton? [Y/N]", t)
+	
+    play_input = 0
+
+    while play_input == 0:
+
+        play_input = str.lower(input("> "))
+
+        if play_input == "no" or play_input == "n":
+			
+            type("\n\n You ignore the skeleton and head back.", t)
+		
+            input("\n<Press ENTER to continue>")
+		
+            print("\f")
+		
+            play_room = "main"
+		
+            return play_room
+	
+        elif play_input == "yes" or play_input == "y":
+		
+            type("""
+\n You approach the skeleton. Upon examining it, you spot a small satchel. It 
+ has seen better days. You open it and see blood stained gems. They seem 
+ really heavy. 
+ 
+ You inspect the skeleton further. It's propped against a lever. This looks
+ like it might be your way forward.
+ 
+ Do you TAKE the gems or PULL the lever?
+""", t)
+
+            type("\n\n TAKE or PULL?", t)
+
+            play_input2 = 0
+            
+            while play_input2 == 0:
+
+                play_input2 = str.lower(input("> "))
+
+                if play_input2 == "take":
+
+                    play_room = "gems"
+
+                    return play_room
+
+                elif play_input2 == "pull":
+
+                    play_room = "lever"
+
+                    return play_room
+
+                else:
+
+                    type(f" \n Just a choose from 'TAKE' or 'PULL'. Try again", t)
+
+                    play_input2 = 0
+
+        else:
+
+            type(f" \n Just a simple 'Y' or 'N' question. Try again!", t)
+
+            play_input = 0
+
+def EAGLE_ROOM2(play_spd):
+    """ Eagle room finishing module """
+    
+    t = 0.015
+
+    type("\n\n The ceiling starts to decend and a new path opens.", t)
+
+    if play_spd == 0:
+
+        type("""
+ 
+ As you try to make your way to the newly opened path, you feel like your feet
+ are as heavy as stone. 
+
+ You can't move your legs.
+
+ Then the gems in the satchel start glowing and dripping blood.
+""", t)
+
+        type("\n\n Do you want to leave the gems? [Y/N]", t)
+
+        play_input = 0
+
+        while play_input == 0:
+
+            play_input = str.lower(input("> "))
+
+            if play_input == "yes" or play_input == "y":
+
+                play_input = 1
+
+                type("\n\n You drop the satchel.", t)
+
+            elif play_input == "no" or play_input == "n":
+
+                type("""
+ 
+ The gems captivate you even further. You get lost in a haze of blood and 
+ glimmer.
+ 
+ You then start having a crushing feeling.
+ 
+ The ceiling is right on your head. Your body has already fallen.
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n You look at the opened path.", t)
+
+                time.sleep(0.5)
+
+                type("""
+\n The ceiling is now starting to crush your ribs. You take your last breath.
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n\n YOU ARE DEAD!\n\n\n", t)
+
+                play_room = "dead"
+
+                return play_room
+ 
+            else:
+
+                type(f" \n Just a simple 'Y' or 'N' question. Try again!", t)
+
+                play_input = 0
+
+    if play_spd != 0 or play_input == 1:
+
+        type("""
+ 
+ You rush to the opened path, but stumble along the way. You trip but manage to
+ regain your balance. You keep on running.
+ 
+ You leap towards the new path.
+ 
+ As your body flies through the door, the ceiling comes crashing down.
+ 
+ You let out a sigh of relief. You survived a crushing death.
+""", t)
+
+        input("\n<Press ENTER to continue>")
+
+        play_room = "morphing"
+        
+        return play_room
+
+def MORPHING_ROOM(play_char):
+    """ Morphing room module """
+    
+    t = 0.015
+
+    print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+- THE LIGHT SPIRE -+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+""")
+
+    type("""
+ A light shines at the end of the hallway. You follow it.
+ 
+ You enter a room with a narrow walkway leading to a spire of light surrounded
+ by rocks flying around it. The path ends right before the light. Looking
+ around, you just noticed that you were walking on a floating platform. 
+ 
+ "I don't want to fall down there."
+ 
+ Examining the light spire, you approach it. Three pedestals start to rise from
+ the floor. On each one is an item:
+ 
+	The first one has a intricately designed but broken SWORD.
+	
+	A majestic rainbow-coloured unicorn MANE is on the second.
+	
+	On the last one is a pair of BOOTS decorated by rooster feathers.
+
+ You decide to pick one up.	
+""", t)
+
+    play_room = 0
+
+    while play_room == 0:
+
+        type("\n\n Which one do you pick up? [SWORD / MANE / BOOTS]", t)
+
+        play_room = str.lower(input("> "))
+
+        if play_room == "sword":
+
+            type("""
+ 
+ You take the sword.
+ 
+ The rocks start to come together. It has become a huge golem!
+ 
+ You grasp the hilt tighter as you prepare for a fight. The broken pieces of 
+ the sword start to move. A plasma like material emerges from the hilt and 
+ pulls the pieces begin to fly towards the sword.
+ 
+""", t)
+
+            time.sleep(0.5)
+
+            type(" You now have a giant sword!", t)
+
+            input("\n\n<Press ENTER to continue>")
+
+            if play_char == "Peter Akimoto":
+
+                type("""
+ 
+ "Awesome!"
+ 
+ "Get ready to meet Peter AKIMOTO!"
+ 
+ You try to raise the sword, but it's heavy. You use two hands, but still 
+ won't budge.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ You look at the golem and see it about to slam its fists on you.
+ 
+ You keep trying to move the sword.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ You look at the golem again. Its fists now are now inches from you.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ "Oh shit. . ."
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n\n YOU ARE DEAD!\n", t)
+
+                play_room = "dead"
+
+                return play_room
+
+            else:
+
+                type("""
+
+ The sword feels nice in your hand. You raise it to ready yourself to strike 
+ the golem down.
+
+ It swings at you but you cut off its arm.
+
+ You run straight at it.
+
+ The golem swings at you again, and you cut its other arm off.
+
+ It roars at you.  
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n You swing the sword.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n The golem's head falls down.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n Your sword starts to turn to dust.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n A new path appears.", t)
+
+                input("\n\n<Press ENTER to continue>")
+
+                play_room = "path"
+
+                return play_room
+
+        elif play_room == "mane":
+
+            type("""
+ 
+ You take the unicorn mane.
+ 
+ The rocks start to come together. A song fills the room as a siren begins to
+ appear in front of you.
+ 
+ You put on the unicorn mane. As you lay it around your neck, it starts to
+ transform. You begin to glimmer and sparkle. 
+ 
+""", t)
+
+            time.sleep(0.5)
+
+            type(" You are now wearing a white sorcerer's cloak!", t)
+
+            input("\n\n<Press ENTER to continue>")
+
+            if play_char == "Danny Trejo":
+
+                type("""
+ "This just feels wrong."
+ 
+ You begin removing the cloak.
+ 
+ As the cloak falls from your head, it begins to crumble.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ You look at the siren and try to reach it to break its neck.
+ 
+ Its song starts to intensify.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ You jump towards the siren, but your body starts to crack and leak light.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ "It can't end like this!"
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n\n YOU ARE DEAD!\n", t)
+
+                play_room = "dead"
+
+                return play_room
+
+            else:
+
+                type("""
+
+ You find yourself wearing a shining sorcerer's cloak.
+
+ The siren's song intensifies but you can hear your own thoughts clearly.
+
+ You clench your fists and runes appear around them.
+
+ The siren starts to approach you. Its song getting louder as your enemy 
+ dashes towards you.
+ 
+ You ready your hands to defend yourself from it.
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n You grab it by the face.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n The siren struggles as it cracks apart then vanish.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n Your cloak turns to dust.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n A new path appears.", t)
+
+                input("\n\n<Press ENTER to continue>")
+
+                play_room = "path"
+
+                return play_room
+
+        elif play_room == "boots":
+
+            type("""
+ 
+ You take the boots.
+ 
+ The rocks start to fly towards you. It hits the platform you are on and it
+ starts to destroy it.
+ 
+ You hurriedly put on the boots. It magically starts to fit your feet. As you
+ put both boots on you start feeling very light on your feet. You jump and 
+ platforms magically appear on your feet.
+ 
+""", t)
+
+            time.sleep(0.5)
+
+            type(" You now have increased agility!", t)
+
+            input("\n\n<Press ENTER to continue>")
+
+            if play_char == "Pierre la Pierre":
+
+                type("""
+ "I haven't moved like this in my life."
+ 
+ "Time to get out of here."
+ 
+ You start running around and jumping.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ You keep dodging the rocks, but your glasses fall into the abyss.
+""", t)
+
+                time.sleep(0.5)
+
+                type("""
+ You cannot see anything. You keep moving but get hit my numerous rocks.
+""", t)
+
+                time.sleep(0.5)
+
+                type('"I got too cocky. . ."', t)
+
+                time.sleep(0.5)
+
+                type("\n\n YOU ARE DEAD!\n", t)
+
+                play_room = "dead"
+
+                return play_room
+
+            else:
+
+                type("""
+ 
+ You start dodging the rocks as they come crashing down.
+
+ The boots keeps you going.
+
+ While dodging the rocks, you see a ledge behind the spire of light.
+
+ Bigger rocks start falling at a faster speed.
+ 
+ You summon all your remaining stamina to rush to the ledge.
+""", t)
+
+                time.sleep(0.5)
+
+                type("\n Making your way to safety, the boots start to loosen.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n You land on a ledge on the other side of the room.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n But the boots have fallen into the abyss.", t)
+
+                time.sleep(0.5)
+
+                type("\n\n A new path appears.", t)
+
+                input("\n\n<Press ENTER to continue>")
+
+                play_room = "path"
+
+                return play_room
+
+        else:
+
+            type(f" \n That is not one of the choices. Try again.", t)
+
+            play_room = 0
+            
+def PATH_ROOM():
+    """ Path room module """
+    
+    t = 0.015
+
+    print("""
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ +-+-+-+ THE DARK MAZE +-+-+-+
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+""")
+
+    type("""
+ You walk through what seems to be an unending maze.
+
+ It seems like hours since you've been walking. You keep going forward.
+
+ The path starts to slowly get darker.
+
+ You pass the only TORCH you've seen in the whole temple.
+""", t)
+
+    play_inv2 = 0
+
+    while play_inv2 == 0:
+
+        type("\n\n TAKE or PASS?", t)
+
+        play_inv = str.lower(input("> "))
+
+        if play_inv == "take":
+	
+            inventory = ["torch"]
+
+            play_inv2 = 1
+
+        elif play_inv == "pass":
+
+            play_inv2 = 1
+
+        else:
+
+            type(f" \n That is not one of the choices. Try again.", t)
+            
+            play_inv2 = 0
+
+    type("""
+
+ You press on.
+ 
+ As you walk forward, you see packs of DEODORANT STICK.
+ 
+ It weirds you out
+""", t)
+
+    play_inv2 = 1
+
+    while play_inv2 == 1:
+
+        type('\n\n Type "PASS" to keep going.', t)
+
+        play_inv = str.lower(input("> "))
+
+        if play_inv == "take":
+	
+            inventory.append("deo stick")
+
+            play_inv2 = 2
+
+        elif play_inv == "pass":
+
+            play_inv2 = 2
+
+        else:
+
+            type(f" \n That is not one of the choices. Try again.", t)
+            
+            play_inv2 = 1
+
+    type("""
+ 
+ As you keep going, you pass by an abandoned BEE HIVE.
+ 
+ It's empty and void of any life.
+""", t)
+
+    play_inv2 = 2
+
+    while play_inv2 == 2:
+
+        type('\n\n Press "PASS" to keep going.', t)
+
+        play_inv = str.lower(input("> "))
+
+        if play_inv == "take":
+	
+            inventory.append("bee")
+
+            play_inv2 = 3
+
+        elif play_inv == "pass":
+
+            play_inv2 = 3
+
+        else:
+
+            type(f" \n That is not one of the choices. Try again.", t)
+            
+            play_inv2 = 2
+
+    inventory.append("mask")
+    
+    return inventory
+
+def LOST_ROOM():
+    """ Path room lost module """
+    
+    
+    t = 0.015
+
+    type("""
+ 
+ As you wander on, the darkness starts you engulf you.
+ 
+ You look around but no light is in sight.
+ 
+ You keep wandering. . .
+""", t)
+
+    time.sleep(0.5)
+
+    type("\n You never emerge from the darkness.", t)
+
+    time.sleep(0.5)
+
+    type("\n\n\n YOU ARE DEAD!\n\n", t)
+
+    play_room = "dead"
+
+    return play_room
+
+def MASK_ROOM():
+    """ Final treasure module """
+    
+    
+    t = 0.015
+
+    type("""
+
+ The path seems to be engulfed in darkness but your torch lights the way. You
+ keep on going.
+
+ In the distance, a bright light starts to shine.
+ 
+ You approach it. You run towards it.
+ 
+ The darkness starts to fade. As you reach the light, you see the source: a
+ MASK.
+ 
+ It is white beyond compare. The golden design so captivating.
+""", t)
+
+    time.sleep(0.5)
+
+    type("\n You take the mask!", t)
+
+    time.sleep(0.5)
+
+    type("""
+
+ The light starts to fade.
+ 
+ The darkness starts to take over again.
+""", t)
+
+    play_input = 0
+
+    while play_input == 0:
+
+        type("\n\n Do you put on the mask? [Y/N]", t)
+
+        play_input = str.lower(input("> "))
+
+        if play_input == "y":
+
+            play_input = "exit"
+
+            return play_input
+
+        elif play_input == "n":
+
+            play_input = "lost"
+
+            return play_input
+
+        else:
+
+            type(f"\n It's just a simple 'YES' or 'NO'. Try again.", t)
+
+            play_input = 0
+
+            return play_input
+
+def END_ROOM(play_char):
+    """ End game story module """
+    
+    t = 0.015
+
+    type("""
+ You put on the mask.
+ 
+ The darkness fades away and the path is clear now.
+ 
+ You follow it until you find yourself standing in front of a portal.
+ 
+ You pass through it.
+""", t)
+    
+    input("\n<Press ENTER to continue>")
+
+    time.sleep(0.5)
+
+    print("\f")
+
+    type("\n You emerge from the trunk of a tree.", t)
+
+    if play_char == "Peter Akimoto":
+
+        type("""
+ You feel weird. Nothing has changed from your body, but it just feels 
+ different.
+ 
+ Screams can be heard in the forest. It's the kids you tricked.
+ 
+ You look at the mask again.
+ 
+ "Time to go home!"
+""", t)
+
+        time.sleep(0.5)
+
+    elif play_char == "Pierre la Pierre":
+
+        type("""
+ You're tired, but your body just feels different.
+ 
+ Nothing has changed but it's just not the same.
+ 
+ You look at the mask again.
+ 
+ "This is my secret to keep."
+""", t)
+
+        time.sleep(0.5)
+
+    else:
+
+        type("""
+ Your body feels different but it hasn't changed at all.
+ 
+ Tired from all that has happened, you start heading home.
+ 
+ You look at the mask again.
+ 
+ "Just another day for Danny Trejo."
+""", t)
+
+        time.sleep(0.5)
+
+    input("\n<Press ENTER to continue>")
+
+    print("\f")
+
+    play_room = "dead"
+
+    return play_room
+
+def EASTER_ROOM():
+    """ Easter egg finishing module """
+    
+    t = 0.015
+
+    print("\f")
+
+    type("\n You are transported to a room just surrounded by light.", t)
+
+    time.sleep(0.5)
+
+    type("""
+
+ You hear a voice say, "Welcome to my domain."
+ 
+ It sounds familiar. You reply, "Nic Cage?"
+ 
+ "Yes, it is me: Nicolas Cage. If you want to ascend to a higher plane of
+ existence, you must correctly answer my questions."
+ 
+ As Nic Cage speaks, you begin to become puzzled.
+ 
+ "Just answer if it is a Nic Cage flick or a brand of deodorant stick."
+ 
+ You reply, "Simple enough."
+""", t)
+
+    input("\n<Press ENTER to continue>")
+
+    play_input = 0
+
+    while play_input == 0:
+
+        type("\n\n First is 'RAGE'.", t)
+
+        type("\n\n\n NIC CAGE FLICK or DEO STICK?", t)
+
+        play_input = str.lower(input("> "))
+
+        if play_input == "flick" or play_input == "nic cage flick":
+
+            type("\n\n Correct!", t)
+
+            play_input = 1
+
+        elif play_input == "deo stick" or play_input == "deo" or play_input == "stick":
+
+            type("\n\n Incorrect!", t)
+
+            play_input = "dead"
+
+        else:
+
+            type(f"\n\n Just choose from 'FLICK' or 'DEO STICK'. Try again.", t)
+
+        play_input = 1
+
+    while play_input == 1:
+
+        type("\n\n Second is 'JUNGLEMAN'.", t)
+
+        type("\n\n\n NIC CAGE FLICK or DEO STICK?", t)
+
+        play_input = str.lower(input("> "))
+
+        if play_input == "deo stick" or play_input == "deo" or play_input == "stick":
+
+            type("\n\n Correct!", t)
+
+            play_input = 2
+
+        elif play_input == "flick" or play_input == "nic cage flick":
+
+            type("\n\n Incorrect!", t)
+
+            play_input = "dead"
+
+        else:
+
+            type(f"\n\n Just choose from 'FLICK' or 'DEO STICK'. Try again.", t)
+
+            play_input = 1
+
+    while play_input == 2:
+
+        type("\n\n Last is 'VAMPIRE KISS'.", t)
+
+        type("\n\n\n NIC CAGE FLICK or DEO STICK?", t)
+
+        play_input = str.lower(input("> "))
+
+        if play_input == "flick" or play_input == "nic cage flick":
+
+            type("\n\n Correct!", t)
+
+            play_input = "dead2"
+
+            print("\f")
+
+            type("""
+
+ Your body starts to float and Nicolas Cage starts walking towards you.
+ 
+ He gives you a smirk.
+""", t)
+
+            time.sleep(0.5)
+
+            type('\n\n "LET\'S RIDE!"', t)
+
+        elif play_input == "deo stick" or play_input == "deo" or play_input == "stick":
+
+            type("\n\n Incorrect!", t)
+
+            play_input = "dead"
+
+        else:
+
+            type(f"\n\n Just choose from 'FLICK' or 'DEO STICK'. Try again.", t)
+
+            play_input = 2
+                
+    return play_input
+
+def WIN_ROOM():
+    """ Win status module """
+    
+    print("\f")
+    
+    print("""
+
+     __   __        __   __       ___                ___    __        __  
+    /  ` /  \ |\ | / _` |__)  /\   |  |  | |     /\   |  | /  \ |\ | /__` 
+    \__, \__/ | \| \__> |  \ /~~\  |  \__/ |___ /~~\  |  | \__/ | \| .__/ 
+                                                                      
+
+""")
+
+###############################################################################
+###############################################################################
+
+CREDITS1()
+
+play_restart = "y"
+
+while play_restart == "y":
+    
+    INTRO_SCREEN()
+    
+    char_details = CHAR_SEL()
+    play_char = char_details[0]
+    play_str = char_details[1]
+    play_san = char_details[2]
+    play_spd = char_details[3]
+    
+    STORY_START(play_char)
+    
+    play_room = "main"
+    
+    while play_room == "main":
+    
+        play_room = MAIN_HALL(play_char)
+        print("\f")
+        
+        if play_room == "leopard":
+        
+            play_room = LEOPARD_ROOM(play_char)
+            
+            if play_char == "Pierre la Pierre":
+                
+                if play_room == "dead": # Death Sequence
+                    
+                    play_restart = game_restart_2()
+                    
+                    game_restart_1(play_restart)
+                
+                else: # Return to Main Hall Sequence
+                    
+                    play_room = "main"
+                    
+            else:
+                
+                if play_room == "morphing":
+                    
+                    if play_char == "Danny Trejo":
+                        
+                        play_str = 1
+                    
+                    break
+                
+                else: # Return to Main Hall Sequence
+                    
+                    play_room = "main"
+                    
+        if play_room == "ram":
+        
+            play_room = RAM_ROOM(play_char)
+            
+            if play_char == "Danny Trejo":
+                
+                if play_room == "dead":
+                    
+                    play_restart = game_restart_2()
+                    
+                    game_restart_1(play_restart)
+                
+                else: # Return to Main Hall Sequence
+                    
+                    play_room = "main"
+                    
+            else:
+                    
+                play_room = "main"
+                
+        if play_room == "eagle":
+            
+            play_room = EAGLE_ROOM()
+            
+            if play_room == "gems":
+            
+                play_spd = 0
+                
+                play_room = "gems"
+                
+                play_room = EAGLE_ROOM2(play_spd)
+                
+                if play_room == "dead":
+                    
+                    play_restart = game_restart_2()
+                    
+                    game_restart_1(play_restart)
+            
+                elif play_room == "morphing":
+                
+                    if play_char == "Peter Akimoto":
+                
+                        play_spd = 3
+                    
+                    elif play_char == "Pierre la Pierre":
+                    
+                        play_spd = 1
+                        
+                    else:
+                        
+                        play_spd = 2
+            
+            elif play_room == "lever":
+                
+                play_room = "lever"
+            
+                play_room = EAGLE_ROOM2(play_spd)
+            
+            else:
+                
+                play_room = "main"
+    
+    print("\f")
+   
+    while play_room == "morphing":
+            
+            play_room = MORPHING_ROOM(play_char)
+    
+            if play_room == "dead": # Death Sequence
+                    
+                    play_restart = game_restart_2()
+                    
+                    game_restart_1(play_restart)
+                    
+            else:
+                
+                play_room = "path"
+    
+    print("\f")
+    
+    while play_room == "path":
+    
+        inventory = PATH_ROOM()
+        
+        if "torch" in inventory:
+            
+            play_room = MASK_ROOM()
+            
+            if play_room == "exit":
+                
+                if "deo stick" in inventory and "bee" in inventory:
+                    
+                    play_room = EASTER_ROOM()
+                    
+                    if play_room == "dead":
+                    
+                        input("\n<Press ENTER to continue>")
+                        
+                        END_ROOM(play_char)
+                    
+                        WIN_ROOM()
+            
+                        play_room = "dead"
+                        
+                        play_restart = game_restart_2()
+                        
+                        game_restart_1(play_restart)
+                    
+                    else:
+                
+                        input("\n<Press ENTER to continue>")
+                        
+                        WIN_ROOM()
+
+                        play_room = "dead"
+                        
+                        play_restart = game_restart_2()
+                        
+                        game_restart_1(play_restart)
+                        
+                else:
+                    
+                    END_ROOM(play_char)
+                    
+                    WIN_ROOM()
+                    
+                    play_room = "dead"
+                    
+                    play_restart = game_restart_2()
+                        
+                    game_restart_1(play_restart)
+            
+            else:
+                
+                LOST_ROOM()
+                            
+                play_room = "dead"
+            
+                play_restart = game_restart_2()
+                        
+                game_restart_1(play_restart)
+            
+        else:
+            
+            LOST_ROOM()
+            
+            play_room = "dead"
+            
+            play_restart = game_restart_2()
+                        
+            game_restart_1(play_restart)
+        
